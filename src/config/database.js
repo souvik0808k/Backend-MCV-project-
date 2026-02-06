@@ -3,7 +3,11 @@ import mongoose from 'mongoose';
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mvc_app', {
-      // These options are no longer needed in Mongoose 6+, but included for compatibility
+      // SSL/TLS configuration for MongoDB Atlas
+      tls: true,
+      tlsAllowInvalidCertificates: false,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
     });
     
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
